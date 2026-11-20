@@ -33,6 +33,21 @@ def ejercicio1():
 
 @app.route('/ejercicio2', methods=['GET', 'POST'])
 def ejercicio2():
+    if request.method == 'POST':
+        nombre1 = request.form['nombre1']
+        nombre2 = request.form['nombre2']
+        nombre3 = request.form['nombre3']
+        mayor = nombre1
+        caracteres = None
+        if len(nombre1) >= len(nombre2) and len(nombre1) >= len(nombre3):
+            mayor = nombre1
+        elif len(nombre2) >= len(nombre1) and len(nombre2) >= len(nombre3):
+            mayor = nombre2
+        else:
+            mayor = nombre3
+        caracteres = len(mayor)
+        return render_template('ejercicio2.html', mayor=mayor,
+                               caracteres=caracteres)
     return render_template('ejercicio2.html')
 
 if __name__ == '__main__':
