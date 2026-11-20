@@ -3,6 +3,13 @@ from flask import Flask, request, render_template
 app = Flask(__name__)
 
 
+# FUNCIONES DE UTILIDAD
+
+# Función para limitar un número a cierto rango con mínimo y máximo.
+def clamp(value, lower, upper):
+    return max(lower, min(value, upper))
+#
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -10,10 +17,10 @@ def index():
 @app.route('/ejercicio1', methods=['GET', 'POST'])
 def ejercicio1():
     if request.method == 'POST':
-        nota1 = int(request.form['nota1'])
-        nota2 = int(request.form['nota2'])
-        nota3 = int(request.form['nota3'])
-        asistencia = int(request.form['asistencia'])
+        nota1 = clamp(int(request.form['nota1']), 10, 70)
+        nota2 = clamp(int(request.form['nota2']), 10, 70)
+        nota3 = clamp(int(request.form['nota3']), 10, 70)
+        asistencia = clamp(int(request.form['asistencia']), 0, 100)
         promedio = round((nota1 + nota2 + nota3)/3, 1)
         resultado = None
         if promedio >= 40 and asistencia >= 80:
